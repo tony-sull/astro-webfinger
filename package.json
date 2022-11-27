@@ -26,10 +26,10 @@
   },
   "scripts": {
     "format": "run-s format:*",
-    "format:prettier": "prettier --ignore-path .gitignore -w .",
+    "format:prettier": "prettier --ignore-path .prettierignore -w .",
     "format:eslint": "eslint --fix --ignore-path .eslintignore --ext .js,.ts,.astro --fix .",
     "lint": "run-s lint:*",
-    "lint:prettier": "prettier --ignore-path .gitignore -c .",
+    "lint:prettier": "prettier --ignore-path .prettierignore -c .",
     "lint:eslint": "eslint --fix --ignore-path .eslintignore --ext .js,.ts,.astro ."
   },
   "devDependencies": {
