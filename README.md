@@ -31,14 +31,14 @@ To configure this integration, pass a `config` object to the `webfinger()` funct
 import webfinger from 'astro-webfinger'
 
 export default defineConfig({
-    integrations: [
-        webfinger({
-            mastodon: {
-                instance: 'myinstance.social',
-                username: 'myusername'
-            }
-        })
-    ]
+  integrations: [
+    webfinger({
+      mastodon: {
+        instance: 'myinstance.social',
+        username: 'myusername',
+      },
+    }),
+  ],
 })
 ```
 
@@ -46,9 +46,9 @@ export default defineConfig({
 
 ### Server-Side Rendering (SSR)
 
-Currently, `astro-webfinger` will return your Mastodon profile regardless of the username that was actually searched.  ex: search for `fake@tonysull.co` and you will still discover my Mastodon profile.
+Currently, `astro-webfinger` will return your Mastodon profile regardless of the username that was actually searched. ex: search for `fake@tonysull.co` and you will still discover my Mastodon profile.
 
-A future release of `astro-webfinger` will add an SSR mode that allows you to configure what usernames should be recognized insearch results. This will also allow you to alias *multiple Mastodon profiles* from the your own domain.
+A future release of `astro-webfinger` will add an SSR mode that allows you to configure what usernames should be recognized insearch results. This will also allow you to alias _multiple Mastodon profiles_ from the your own domain.
 
 ## Credits
 
