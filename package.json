@@ -1,10 +1,11 @@
 {
-  "name": "@example/integration",
+  "name": "buss",
   "private": true,
   "version": "0.0.1",
   "type": "module",
   "exports": {
-    ".": "./index.ts"
+    ".": "./index.ts",
+    "./routes/*": "./src/routes/*"
   },
   "files": [
     "src",

@@ -1,32 +1,61 @@
-# Astro Starter Kit: Integration Package
+# `astro-webfinger`
 
-This is a template for an Astro integration. Use this template for writing integrations to use in multiple projects or publish to NPM.
+This [Astro integration](https://docs.astro.build/en/guides/integrations-guide/) allows any Mastodon instance to discover your Mastodon profile directly from your own domain.
 
+**Try it out** In your favorite Mastodon instance, search for `@tony@tonysull.co` and you'll find my Mastodon profile.
+
+## Why?
+
+Hosting a live Mastodon site on your own domain is no easy task. If you aren't ready to take that leap you can use your own domain as an alias to point to your Mastodon profile.
+
+This uses the [WebFinger](https://webfinger.net/) protocol to attach information to an email, in this case to point an email address on your own domain to your Mastodon profile.
+
+For exmaple, I have a Mastodon profile at [@tonysull@indieweb.social](https://indieweb.social/@tonysull). The `astro-webfinger` integration is added to my Astro site at [https://tonysull.co](https://tonysull.co), allowing any Mastodon instance to discover my account by searching for `tony@tonysull.co`.
+
+## Installation
+
+```bash
+# npm
+npm i @astrojs/rss
+# yarn
+yarn add @astrojs/rss
+# pnpm
+pnpm i @astrojs/rss
 ```
-npm create astro@latest -- --template integration
+
+## Configuration
+
+To configure this integration, pass a `config` object to the `webfinger()` function call in `astro.config.mjs`.
+
+```js
+import webfinger from 'astro-webfinger'
+
+export default defineConfig({
+    integrations: [
+        webfinger({
+            mastodon: {
+                instance: 'myinstance.social',
+                username: 'myusername'
+            }
+        })
+    ]
+})
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/integration)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/s/github/withastro/astro/tree/latest/examples/integration)
+## What's next?
 
+### Server-Side Rendering (SSR)
 
-## 🚀 Project Structure
+Currently, `astro-webfinger` will return your Mastodon profile regardless of the username that was actually searched.  ex: search for `fake@tonysull.co` and you will still discover my Mastodon profile.
 
-Inside of your Astro project, you'll see the following folders and files:
+A future release of `astro-webfinger` will add an SSR mode that allows you to configure what usernames should be recognized insearch results. This will also allow you to alias *multiple Mastodon profiles* from the your own domain.
 
-```
-/
-├── index.ts
-├── tsconfig.json
-├── package.json
-```
+## Credits
 
-The `index.ts` file is the "entry point" for your integration. Export your integration in `index.ts` to make them importable from your package.
+Inspired by [`Jekyll::MastodonWebfinger`](https://github.com/philnash/jekyll-mastodon_webfinger)
 
-## 🧞 Commands
-All commands are run from the root of the project, from a terminal:
+**Related articles**
 
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `npm link`              | Registers this package locally. Run `npm link my-integration` in an Astro project to install your integration
-| `npm publish` | [Publishes](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages#publishing-unscoped-public-packages) this package to NPM. Requires you to be [logged in](https://docs.npmjs.com/cli/v8/commands/npm-adduser)
+[Maarten Balliauw's](https://maartenballiauw.be) blog post [Mastodon on your own domain without hosting a server](https://blog.maartenballiauw.be/post/2022/11/05/mastodon-own-donain-without-hosting-server.html)
+
+[Lindsay Wardell's](https://lindsaykwardell.com) blog post [Integrate Mastodon with Astro](https://www.lindsaykwardell.com/blog/integrate-mastodon-with-astro)
