@@ -1,25 +1,28 @@
 import type { Plugin } from 'vite'
 
 export interface MastodonOptions {
-	username: string
-	instance: string
+  username: string
+  instance: string
 }
 
-export default function webfingerPlugin({ username, instance }: MastodonOptions): Plugin {
-    const virtualModuleId = `virtual:buss-webfinger`
-    const resolvedVirtualModuleId = '\0' + virtualModuleId
+export default function webfingerPlugin({
+  username,
+  instance,
+}: MastodonOptions): Plugin {
+  const virtualModuleId = `virtual:buss-webfinger`
+  const resolvedVirtualModuleId = '\0' + virtualModuleId
 
-    return {
-        enforce: 'pre',
-        name: 'virtual-webfinger-plugin',
-        resolveId(id) {
-            if (id === virtualModuleId) {
-                return resolvedVirtualModuleId
-              }
-        },
-        load(id) {
-            if (id === resolvedVirtualModuleId) {
-                return `const webfinger = {
+  return {
+    enforce: 'pre',
+    name: 'virtual-webfinger-plugin',
+    resolveId(id) {
+      if (id === virtualModuleId) {
+        return resolvedVirtualModuleId
+      }
+    },
+    load(id) {
+      if (id === resolvedVirtualModuleId) {
+        return `const webfinger = {
     subject: "acct:${username}@${instance}",
     aliases: [
         "https://${instance}/@${username}",
@@ -44,7 +47,7 @@ export default function webfingerPlugin({ username, instance }: MastodonOptions)
 }
 
 export default webfinger`
-            }
-        }
-    }
+      }
+    },
+  }
 }
