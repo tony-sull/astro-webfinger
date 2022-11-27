@@ -21,8 +21,8 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: npm install
-      - name: Build
-        run: npm run build
+      - name: Lint
+        run: npm run lint
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
         env:
