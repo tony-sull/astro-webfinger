@@ -2,7 +2,7 @@
 
 This [Astro integration](https://docs.astro.build/en/guides/integrations-guide/) allows any Mastodon instance to discover your Mastodon profile directly from your own domain.
 
-**Try it out** In your favorite Mastodon instance, search for `@tony@tonysull.co` and you'll find my Mastodon profile.
+**Try it out** In your favorite Mastodon instance, search for `@toot@tonysull.co` and you'll find my Mastodon profile.
 
 ## Why?
 
@@ -10,7 +10,7 @@ Hosting a live Mastodon site on your own domain is no easy task. If you aren't r
 
 This uses the [WebFinger](https://webfinger.net/) protocol to attach information to an email, in this case to point an email address on your own domain to your Mastodon profile.
 
-For exmaple, I have a Mastodon profile at [@tonysull@indieweb.social](https://indieweb.social/@tonysull). The `astro-webfinger` integration is added to my Astro site at [https://tonysull.co](https://tonysull.co), allowing any Mastodon instance to discover my account by searching for `tony@tonysull.co`.
+For example, I have a Mastodon profile at [@tonysull@indieweb.social](https://indieweb.social/@tonysull). The `astro-webfinger` integration is added to my Astro site at [https://tonysull.co](https://tonysull.co), allowing any Mastodon instance to discover my account by searching for `toot@tonysull.co`.
 
 ## Installation
 
