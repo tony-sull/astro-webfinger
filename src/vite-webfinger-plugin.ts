@@ -9,7 +9,7 @@ export default function webfingerPlugin({
   username,
   instance,
 }: MastodonOptions): Plugin {
-  const virtualModuleId = `virtual:buss-webfinger`
+  const virtualModuleId = `virtual:astro-webfinger`
   const resolvedVirtualModuleId = '\0' + virtualModuleId
 
   return {

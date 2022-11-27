@@ -12,6 +12,6 @@
   },
   "dependencies": {
     "astro": "^1.6.11",
-    "buss": "file:.."
+    "astro-webfinger": "file:.."
   }
 }

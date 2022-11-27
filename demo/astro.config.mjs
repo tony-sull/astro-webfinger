@@ -1,11 +1,11 @@
 import { defineConfig } from 'astro/config'
-import buss from 'buss'
+import webfinger from 'astro-webfinger'
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tonysull.co',
   integrations: [
-    buss({
+    webfinger({
       mastodon: {
         instance: 'indieweb.social',
         username: 'tonysull',

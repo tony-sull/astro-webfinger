@@ -1,13 +1,13 @@
 import type { AstroIntegration } from 'astro'
 import webfingerPlugin, { MastodonOptions } from './vite-webfinger-plugin.js'
 
-export interface BussOptions {
+export interface WebfingerOptions {
   mastodon?: MastodonOptions
 }
 
 export default function createIntegration({
   mastodon,
-}: BussOptions = {}): AstroIntegration {
+}: WebfingerOptions = {}): AstroIntegration {
   // See the Integration API docs for full details
   // https://docs.astro.build/en/reference/integrations-reference/
   return {
@@ -22,7 +22,7 @@ export default function createIntegration({
 
         injectRoute({
           pattern: '.well-known/webfinger',
-          entryPoint: 'buss/routes/webfinger.ts',
+          entryPoint: 'astro-webfinger/routes/webfinger.ts',
         })
       },
     },
