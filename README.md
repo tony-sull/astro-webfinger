@@ -33,10 +33,8 @@ import webfinger from 'astro-webfinger'
 export default defineConfig({
   integrations: [
     webfinger({
-      mastodon: {
-        instance: 'myinstance.social',
-        username: 'myusername',
-      },
+      instance: 'myinstance.social',
+      username: 'myusername',
     }),
   ],
 })

@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite'
 
-export interface MastodonOptions {
+export interface WebfingerOptions {
   username: string
   instance: string
 }
@@ -8,7 +8,7 @@ export interface MastodonOptions {
 export default function webfingerPlugin({
   username,
   instance,
-}: MastodonOptions): Plugin {
+}: WebfingerOptions): Plugin {
   const virtualModuleId = `virtual:astro-webfinger`
   const resolvedVirtualModuleId = '\0' + virtualModuleId
 

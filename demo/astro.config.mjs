@@ -6,10 +6,8 @@ export default defineConfig({
   site: 'https://tonysull.co',
   integrations: [
     webfinger({
-      mastodon: {
-        instance: 'indieweb.social',
-        username: 'tonysull',
-      },
+      instance: 'indieweb.social',
+      username: 'tonysull',
     }),
   ],
 })
