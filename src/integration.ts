@@ -1,7 +1,7 @@
 import type { AstroIntegration } from 'astro'
 import webfingerPlugin, { WebfingerOptions } from './vite-webfinger-plugin.js'
 
-/** 
+/**
  * v1.0.0 nested account details in a Mastodon object
  * This has been deprecated in v1.1.0 and will be removed in v2.0
  */
@@ -18,16 +18,21 @@ interface IntegrationOptions extends WebfingerOptions {
 
 export type Options = DeprecatedOptions | IntegrationOptions
 
-export default function createIntegration(options: Options | undefined): AstroIntegration {
+export default function createIntegration(
+  options: Options | undefined
+): AstroIntegration {
   // until v2.0, handle backwards compatibility for options.mastodon
-  let resolvedOptions = options?.instance && options?.username
-    ? { instance: options.instance, username: options.username }
-    : options?.mastodon
+  const resolvedOptions =
+    options?.instance && options?.username
+      ? { instance: options.instance, username: options.username }
+      : options?.mastodon
       ? options.mastodon
       : undefined
 
   if (!!options?.mastodon) {
-    console.warn('[astro-webfinger] `config.mastodon` is deprecated, use `webfinger({ instance, username })` instead.')
+    console.warn(
+      '[astro-webfinger] `config.mastodon` is deprecated, use `webfinger({ instance, username })` instead.'
+    )
   }
 
   // See the Integration API docs for full details
