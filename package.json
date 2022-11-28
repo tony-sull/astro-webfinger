@@ -24,6 +24,7 @@
     "url": "https://github.com/tony-sull/astro-webfinger/issues"
   },
   "scripts": {
+    "prepare": "husky install",
     "format": "run-s format:*",
     "format:prettier": "prettier --ignore-path .prettierignore -w .",
     "format:eslint": "eslint --fix --ignore-path .eslintignore --ext .js,.ts,.astro --fix .",
