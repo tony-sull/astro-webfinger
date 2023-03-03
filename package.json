@@ -39,7 +39,6 @@
     "@semantic-release/git": "^10.0.1",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
-    "astro": "^2.0.17",
     "eslint": "^8.35.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-astro": "^0.23.0",
@@ -50,8 +49,5 @@
     "prettier": "^2.8.4",
     "prettier-plugin-astro": "^0.8.0",
     "semantic-release": "^20.1.1"
-  },
-  "peerDependencies": {
-    "astro": ">=1.6.11"
   }
 }
