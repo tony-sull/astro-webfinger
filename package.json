@@ -51,6 +51,6 @@
     "semantic-release": "^19.0.5"
   },
   "peerDependencies": {
-    "astro": "^1.6.11"
+    "astro": ">=1.6.11"
   }
 }
