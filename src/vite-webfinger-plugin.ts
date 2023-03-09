@@ -2,9 +2,14 @@ import { AstroConfig } from 'astro'
 import type { Plugin } from 'vite'
 import { simpleWebfinger, type WebfingerProps } from './utils/simpleWebfinger'
 
-export type WebfingerOptions = WebfingerProps | { [username: string]: WebfingerProps }
+export type WebfingerOptions =
+  | WebfingerProps
+  | { [username: string]: WebfingerProps }
 
-export default function webfingerPlugin(options: WebfingerOptions, config: AstroConfig): Plugin {
+export default function webfingerPlugin(
+  options: WebfingerOptions,
+  config: AstroConfig
+): Plugin {
   const virtualModuleId = `virtual:astro-webfinger`
   const resolvedVirtualModuleId = '\0' + virtualModuleId
 
@@ -18,17 +23,21 @@ export default function webfingerPlugin(options: WebfingerOptions, config: Astro
     },
     load(id) {
       if (id === resolvedVirtualModuleId) {
-        const accounts = options.instance && options.username
-          ? {
-            DEFAULT: options
-          }
-          : options
+        const accounts =
+          options.instance && options.username
+            ? {
+                DEFAULT: options,
+              }
+            : options
 
-        const webfingers = Object.entries(accounts).reduce((acc, [key, value]) => {
-          acc[key] = simpleWebfinger(value)
+        const webfingers = Object.entries(accounts).reduce(
+          (acc, [key, value]) => {
+            acc[key] = simpleWebfinger(value)
 
-          return acc
-        }, { })
+            return acc
+          },
+          {}
+        )
 
         return `export const webfingers = ${JSON.stringify(webfingers)}
 
