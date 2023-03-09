@@ -1,9 +1,17 @@
 import type { AstroIntegration } from 'astro'
+import { type WebfingerProps } from './utils/simpleWebfinger.js'
 import webfingerPlugin, {
   type WebfingerOptions,
 } from './vite-webfinger-plugin.js'
 
-type Options = WebfingerOptions
+interface DeprecatedOptions {
+  /** @deprecated Use `webfinger({ instance, username }) instead */
+  mastodon?: WebfingerProps
+  instance: never
+  username: never
+}
+
+type Options = WebfingerOptions | DeprecatedOptions
 
 export default function createIntegration(
   options: Options | undefined
@@ -16,6 +24,20 @@ export default function createIntegration(
       'astro:config:setup': ({ injectRoute, updateConfig, config }) => {
         if (!options) {
           return
+        }
+
+        if ('mastodon' in options) {
+          if (config.output === 'static') {
+            throw new Error(
+              `[astro-webfinger] nested "mastodon" objects are were deprecated in v1.0.0 and removed in v2.0.0
+        
+Pass the { instance, username } object directly to the integration for static builds`
+            )
+          } else {
+            ;`[astro-webfinger] nested "mastodon" objects are were deprecated in v1.0.0 and removed in v2.0.0
+        
+Pass a map of user accounts similar to { user: { instance, username } } directly to the integration for SSR builds`
+          }
         }
 
         if (
