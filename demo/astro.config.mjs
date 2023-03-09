@@ -1,13 +1,22 @@
 import { defineConfig } from 'astro/config'
+import node from '@astrojs/node'
 import webfinger from 'astro-webfinger'
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tonysull.co',
+  adapter: node({ mode: 'standalone' }),
+  output: 'server',
   integrations: [
     webfinger({
-      instance: 'indieweb.social',
-      username: 'tonysull',
+      tony: {
+        instance: 'indieweb.social',
+        username: 'tonysull',
+      },
+      astro: {
+        instance: 'm.webtoo.ls',
+        username: 'astrodotbuild',
+      },
     }),
   ],
 })
