@@ -25,7 +25,15 @@ pnpm i @astrojs/rss
 
 ## Configuration
 
-To configure this integration, pass a `config` object to the `webfinger()` function call in `astro.config.mjs`.
+
+To configure this integration, pass a `config` object to the `webfinger()` function call in `astro.config.mjs` - both static (SSG) builds an server-rendered (SSR) builds.
+
+### Static builds (SSG)
+
+The Webfinger protocol actually depends on using query parameters when searching for accounts. Because query parameters aren't actually supported in static builds, only one account can be provided to the account.
+
+> :caution: Query parameters won't actually be used at all when your account is requested, your account information will always be returned for any Webfinger request regardless of what was being searched for.
+
 
 ```js
 import webfinger from 'astro-webfinger'
@@ -40,13 +48,45 @@ export default defineConfig({
 })
 ```
 
+### Server-rendering (SSR)
+
+With server-rendering the Webfinger query parameters can be used to actually match accounts. If the same integration options as above are passed during an SSR build, it will function the same as SSG and always return your account regardless of what was searched for.
+
+To take full advantage of the benefits of SSR, the integration can be given an object mapping local usernames **on your own domain** to the related Webfinger accounts.
+
+```js
+import webfinger from 'astro-webfinger'
+
+export default defineConfig({
+  site: 'https://tonysull.co',
+  integrations: [
+    webfinger({
+      tony: {
+        instance: 'myinstance.social',
+        username: 'tony',
+      },
+      nottony: {
+        instance: 'secret.social',
+        username: 'someoneelse'
+      }
+    }),
+  ],
+})
+```
+
+In the example above, a search for:
+
+- `tony@tonysull.co` would return account information for `@tony@myinstance.social`
+- `nottony@tonysull.co` would return account information for `@someoneelse@secret.social`
+- all other searches would return a 404 error
+
 ## What's next?
 
-### Server-Side Rendering (SSR)
+### Fine-grained control of the Webfinger redirect
 
-Currently, `astro-webfinger` will return your Mastodon profile regardless of the username that was actually searched. ex: search for `fake@tonysull.co` and you will still discover my Mastodon profile.
+Currently the list of aliases and links in the Webfinger redirect are hard-coded for basic support. I'm definitely not a power user when it comes to the Fediverse but could see there being good reason to support custom aliases and links!
 
-A future release of `astro-webfinger` will add an SSR mode that allows you to configure what usernames should be recognized insearch results. This will also allow you to alias _multiple Mastodon profiles_ from the your own domain.
+Have something else in mind? Start a [discussion thread](https://github.com/tony-sull/astro-webfinger/discussions) open an [issue](https://github.com/tony-sull/astro-webfinger/issues), or file a [pull request](https://github.com/tony-sull/astro-webfinger/pulls) if you're able to contribute code!
 
 ## Credits
 

@@ -11,7 +11,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^1.6.11",
+    "@astrojs/node": "^5.1.0",
+    "astro": "^2.1.2",
     "astro-webfinger": "file:.."
   }
 }

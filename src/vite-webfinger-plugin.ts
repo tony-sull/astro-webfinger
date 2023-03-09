@@ -1,14 +1,10 @@
+import { AstroConfig } from 'astro'
 import type { Plugin } from 'vite'
+import { simpleWebfinger, type WebfingerProps } from './utils/simpleWebfinger'
 
-export interface WebfingerOptions {
-  username: string
-  instance: string
-}
+export type WebfingerOptions = WebfingerProps | { [username: string]: WebfingerProps }
 
-export default function webfingerPlugin({
-  username,
-  instance,
-}: WebfingerOptions): Plugin {
+export default function webfingerPlugin(options: WebfingerOptions, config: AstroConfig): Plugin {
   const virtualModuleId = `virtual:astro-webfinger`
   const resolvedVirtualModuleId = '\0' + virtualModuleId
 
@@ -22,31 +18,21 @@ export default function webfingerPlugin({
     },
     load(id) {
       if (id === resolvedVirtualModuleId) {
-        return `const webfinger = {
-    subject: "acct:${username}@${instance}",
-    aliases: [
-        "https://${instance}/@${username}",
-        "https://${instance}/users/${username}"
-    ],
-    links: [
-        {
-            rel: "http://webfinger.net/rel/profile-page",
-            type: "text/html",
-            href: "https://${instance}/@${username}"
-        },
-        {
-            rel: "self",
-            type: "application/activity+json",
-            href: "https://${instance}/users/${username}"
-        },
-        {
-            rel: "http://ostatus.org/schema/1.0/subscribe",
-            template: "https://${instance}/authorize_interaction?uri={uri}"
-        }
-    ]
-}
+        const accounts = options.instance && options.username
+          ? {
+            DEFAULT: options
+          }
+          : options
 
-export default webfinger`
+        const webfingers = Object.entries(accounts).reduce((acc, [key, value]) => {
+          acc[key] = simpleWebfinger(value)
+
+          return acc
+        }, { })
+
+        return `export const webfingers = ${JSON.stringify(webfingers)}
+
+export const output = "${config.output}"`
       }
     },
   }
