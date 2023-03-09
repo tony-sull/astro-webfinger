@@ -1,5 +1,7 @@
 import type { AstroIntegration } from 'astro'
-import webfingerPlugin, { type WebfingerOptions } from './vite-webfinger-plugin.js'
+import webfingerPlugin, {
+  type WebfingerOptions,
+} from './vite-webfinger-plugin.js'
 
 type Options = WebfingerOptions
 
@@ -16,7 +18,11 @@ export default function createIntegration(
           return
         }
 
-        if (config.output === 'static' && Array.isArray(options) && options.length > 1) {
+        if (
+          config.output === 'static' &&
+          Array.isArray(options) &&
+          options.length > 1
+        ) {
           throw new Error(`[astro-webfinger] only supports one Webfinger account in static builds.
           
 See Astro's server-side rendering docs if you need to provide an array of multiple accounts.

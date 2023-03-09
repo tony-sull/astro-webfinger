@@ -25,7 +25,6 @@ pnpm i @astrojs/rss
 
 ## Configuration
 
-
 To configure this integration, pass a `config` object to the `webfinger()` function call in `astro.config.mjs` - both static (SSG) builds an server-rendered (SSR) builds.
 
 ### Static builds (SSG)
@@ -33,7 +32,6 @@ To configure this integration, pass a `config` object to the `webfinger()` funct
 The Webfinger protocol actually depends on using query parameters when searching for accounts. Because query parameters aren't actually supported in static builds, only one account can be provided to the account.
 
 > :caution: Query parameters won't actually be used at all when your account is requested, your account information will always be returned for any Webfinger request regardless of what was being searched for.
-
 
 ```js
 import webfinger from 'astro-webfinger'
@@ -67,8 +65,8 @@ export default defineConfig({
       },
       nottony: {
         instance: 'secret.social',
-        username: 'someoneelse'
-      }
+        username: 'someoneelse',
+      },
     }),
   ],
 })
